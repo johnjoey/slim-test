@@ -53,7 +53,7 @@ return [
         // jwt settings
         'jwt'  => [
             'secret' => getenv('JWT_SECRET'),
-            'secure' => false,
+            'secure' => true,
             "header" => "Authorization",
             "regexp" => "/Token\s+(.*)$/i",
             'passthrough' => ['OPTIONS']
