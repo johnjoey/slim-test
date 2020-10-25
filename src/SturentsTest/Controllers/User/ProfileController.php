@@ -34,6 +34,13 @@ class ProfileController
     public function show(Request $request, Response $response, array $args)
     {
         $user = $this->auth->getUserByName($args['username']);
+
+        if (is_null($user)) {
+            return $response->withJson([], 404);
+        }
+
+        unset($user->token);
+        
         $profile = $user->toArray();
 
         $requestUser = $this->auth->requestUser($request);
@@ -71,7 +78,7 @@ class ProfileController
         $requestUser = $this->auth->requestUser($request);
         $user = User::query()->where('username', $args['username'])->firstOrFail();
 
-        $requestUser->un_follow($user->id);
+        $requestUser->unFollow($user->id);
 
         return $response->withJson(
             [

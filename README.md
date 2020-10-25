@@ -90,11 +90,15 @@ framework for most aspects, [Eloquent](https://laravel.com/docs/5.8/eloquent) fo
 with my password but the system tells me I have to be logged in to edit my article - but I am logged in? Please can
 you help as I've spotted some typos and need to fix them."
 
+> **jwtMiddleware missing from Article :update route**
+
 ----
 
 "Sorry, this might be me doing something wrong but I noticed something odd on one of my articles. Yesterday morning there
 were comments on my article but now there aren't any. I messaged one of my friends and asked if she deleted it and 
 she said she didn't so can you tell me what's happening?"
+
+> **comment delete endpoint not checking comment belongs to user due to assignment (=) instead of comparison (==)**
 
 ----
 
@@ -108,12 +112,16 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NjI5NDk1NjQsImV4cCI6MTU2Mjk1Njc
 
 We bill by the hour."
 
+> **Show profile endpoint returns users token**
+
 ----
 
 "Hi it's Dave in QA. I emailed you last week to ask if passwords were case sensitive because that meets our current
 audit requirements - you told me they were. I just tried to log in with my usual password but in lower case and it
 let me sign in. So please can you check that passwords have to be case sensitive because otherwise we'll get blamed
 for it again."
+
+> **Passwords are case sensitive. The issue is passwords aren't being checked at all.**
 
 ----
 
@@ -123,21 +131,30 @@ but we've noticed something strange. There are over 1,000 favourites already on 
 have any favourites. I know that might be true but it just seems odd right - surely some other posts should get at
 least one favourite?"
 
+> **WHERE clause missing from article fetch means first of all articles is favourated every time**
+
 ----
 
 "I think we have a problem somewhere; bunch of our original users seem to have blank emails. I know we had that 
 validator issue but I thought that just stopped them editing their emails - don't think they should be able to
 set them to blank or we won't be able to do password resets"
 
+> **if email not in request body then email is set to null. Fix by checking if set.**
+
 ----
 
 "There's a few new test fails come in since the latest commits to master; can you take a look at them, I think Jenkins
 was down so they just got accepted"
 
+> - **AddCommentTest comment body string mismatch**
+> - **ProfileController show() not returning 404 if profile doesn't exist**
+
 ----
 
 "Hi, I followed Elon Musk but all he posts are cat videos; can you add an option to unfollow him - I press the button
 that looks like it should do that but I guess I misunderstood because it doesn't seem to do anything"
+
+> **method typo: un_follow() should be unFollow()**
 
 ----
 
@@ -148,9 +165,13 @@ We've been working on an integration to your API to list your articles on Facebo
 We have your swagger file and are making GET requests to "/api/articles/" but it crashes the script every
 time we run it - I think the requests time out or something. Are we doing something wrong or is there a bug?"
 
+> **/api/articles seemed to work fine for me so unsure where problem is**
+
 ----
 
 "Hey it's Elon. I think something broke in today's deploy - I still have a bunch of people commenting on my articles but
 their comments are blank. I'm pretty sure that was in the original spec and we tested that you can't post a blank
 comment but literally everyone has started doing it. I don't know why, lots of users were posting normal comments
 before - have they all got hacked or is it something else?"
+
+> **Might be bbody typo but I got 500 error due to integrity constraint on body column being null so seems unlikely**

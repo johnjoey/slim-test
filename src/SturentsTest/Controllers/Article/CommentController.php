@@ -90,7 +90,7 @@ class CommentController
         }
 
         $comment = Comment::create([
-            'body'       => $data['bbody'],
+            'body'       => $data['body'],
             'user_id'    => $requestUser->id,
             'article_id' => $article->id,
         ]);
@@ -119,7 +119,7 @@ class CommentController
             return $response->withJson([], 401);
         }
 
-        if ($requestUser->id=$comment->user_id) {
+        if ($requestUser->id == $comment->user_id) {
             $comment->delete();
 
             return $response->withJson([], 200);

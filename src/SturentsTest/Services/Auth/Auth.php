@@ -71,19 +71,17 @@ class Auth {
 	 */
 	public function attempt($email, $password){
 		$user = $this->getUserByEmail($email);
-        if (! $user) {
-	        return false;
-        }
 
-        try {
-	        password_verify($password, $user->password);
+		if (! $user) {
+			return false;
+		}
 
-	        return $user;
-        }
-        catch (Exception $e) {
-	        return false;
-        }
-    }
+		if (password_verify($password, $user->password)) {
+			return $user;
+		}
+
+		return false;
+  }
 
 	/**
 	 * @param $email

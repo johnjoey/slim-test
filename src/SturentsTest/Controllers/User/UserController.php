@@ -58,7 +58,7 @@ class UserController
             }
 
             $user->update([
-                'email'    => $requestParams['email'],
+                'email'    => isset($requestParams['email']) ? $requestParams['email'] : $user->email,
                 'username' => isset($requestParams['username']) ? $requestParams['username'] : $user->username,
                 'bio'      => isset($requestParams['bio']) ? $requestParams['bio'] : $user->bio,
                 'image'    => isset($requestParams['image']) ? $requestParams['image'] : $user->image,

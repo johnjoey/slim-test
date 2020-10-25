@@ -42,7 +42,7 @@ class FavoriteController
      */
     public function store(Request $request, Response $response, array $args)
     {
-        $article = Article::query()->firstOrFail();
+        $article = Article::query()->where('slug', $args['slug'])->firstOrFail();
         $requestUser = $this->auth->requestUser($request);
 
         if (is_null($requestUser)) {
@@ -54,7 +54,6 @@ class FavoriteController
         $data = $this->fractal->createData(new Item($article, new ArticleTransformer($requestUser->id)))->toArray();
 
         return $response->withJson(['article' => $data]);
-
     }
 
     /**

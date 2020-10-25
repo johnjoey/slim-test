@@ -10,16 +10,19 @@ class AddCommentTest extends BaseTestCase
 
     use UseDatabaseTrait;
 
+    const COMMENT_BODY = 'His name was my name too.';
+
     /** @test */
     public function authenticated_user_may_comment_on_an_article()
     {
+
         $article = $this->createArticle();
         $user = $this->createUserWithValidToken();
         $headers = ['HTTP_AUTHORIZATION' => 'Token ' . $user->token];
 
         $payload = [
             'comment' => [
-                'body' => 'His name was my name too.',
+                'body' => self::COMMENT_BODY,
             ],
         ];
 
@@ -30,7 +33,7 @@ class AddCommentTest extends BaseTestCase
             $headers);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertDatabaseHas('comments', ['body' => 'His name was my name too']);
+        $this->assertDatabaseHas('comments', ['body' => self::COMMENT_BODY]);
         $this->assertEquals(1, $article->comments()->count());
         $this->assertEquals(1, $user->comments()->count());
     }
